@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: linear-gradient(135deg,#0f172a,#020617);
+}
+
+/* CARD */
+.login-box{
+  width:340px;
+  padding:40px 30px;
+  border-radius:18px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(20px);
+  border:1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  text-align:center;
+  animation:fade 0.6s ease;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(20px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+h2{
+  color:#fff;
+  margin-bottom:25px;
+  font-weight:600;
+  letter-spacing:1px;
+}
+
+/* INPUTS */
+input{
+  width:100%;
+  padding:14px;
+  margin-bottom:14px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  color:#fff;
+  font-size:14px;
+  outline:none;
+  transition:0.25s;
+}
+
+input::placeholder{
+  color:#94a3b8;
+}
+
+input:focus{
+  border-color:#38bdf8;
+  background: rgba(255,255,255,0.12);
+  box-shadow:0 0 0 2px rgba(56,189,248,0.3);
+}
+
+/* BOTÃO */
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  background: linear-gradient(135deg,#38bdf8,#6366f1);
+  color:white;
+  transition:0.25s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(99,102,241,0.4);
+}
+
+button:active{
+  transform:scale(0.97);
+}
+
+/* MENSAGEM ERRO */
+.msg{
+ margin-top:10px;
+ font-size:14px;
+ color:#ff4d4d;
+ height:18px;
+}
+
+/* FOOTER */
+.footer{
+  margin-top:18px;
+  font-size:12px;
+  color:#94a3b8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+  <h2>Login</h2>
+
+  <input id="u" placeholder="Usuário">
+  <input id="p" type="password" placeholder="Senha">
+
+  <button onclick="logar()">Entrar</button>
+
+  <div id="msg" class="msg"></div>
+
+  <div class="footer">Sistema seguro</div>
+</div>
+
+<script>
+
+document.addEventListener("keydown",function(e){
+ if(e.key==="Enter") logar();
+});
+
+async function logar(){
+
+ document.getElementById("msg").innerText="";
+
+ const r = await fetch("/login",{
+  method:"POST",
+  headers:{"Content-Type":"application/json"},
+  body:JSON.stringify({
+   user:u.value,
+   pass:p.value
+  })
+ });
+
+ const d = await r.json();
+
+ if(d.ok){
+  location.href="/";
+ }else{
+  document.getElementById("msg").innerText="Senha incorreta";
+ }
+}
+</script>
+
+</body>
+</html>

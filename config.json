@@ -1,0 +1,24 @@
+{
+  "port": 3011,
+  "sessionSecret": "monitor-secret",
+
+  "login": {
+    "user": "admin",
+    "pass": "123456"
+  },
+
+  "email": {
+    "enabled": true,
+    "host": "smtp.medcinhospitaldia.com.br",
+    "port": 587,
+    "secure": false,
+    "user": "ti@medcinhospitaldia.com.br",
+    "pass": "@TiMed2025",
+    "to": "ti@medcinhospitaldia.com.br"
+  },
+
+  "whatsapp": {
+    "enabled": true,
+    "grupo": "120363425024439323@g.us"
+  }
+}
