@@ -1,0 +1,51 @@
+Instalar Node.JS 
+Abrir o cmd dentro da pasta e rodar os comandos:
+
+1 - npx puppeteer browsers install chrome
+2 - npm start
+
+3 - instalar pm2 para rodar automático em segundo plano
+4 - 1) Instalar o PM2 (global)
+
+Rode no PowerShell:
+
+npm i -g pm2
+
+Depois confirme que apareceu o executável:
+
+Get-ChildItem "$env:APPDATA\npm" -Filter "pm2.cmd"
+
+E teste:
+
+& "$env:APPDATA\npm\pm2.cmd" -v
+✅ 2) Subir seu projeto e salvar (pra “voltar” depois)
+
+Dentro da pasta do projeto:
+
+cd "caminho do seu projeto"
+& "$env:APPDATA\npm\pm2.cmd" start server.js --name noc-monitor --time
+& "$env:APPDATA\npm\pm2.cmd" save
+& "$env:APPDATA\npm\pm2.cmd" list
+✅ 3) Auto-start no boot do Windows (jeito mais estável)
+Opção recomendada: Task Scheduler (mais simples/robusto)
+
+Na tarefa, use:
+
+Programa/script:
+C:\Users\nomeusuario\AppData\Roaming\npm\pm2.cmd
+
+Argumentos:
+resurrect
+
+Iniciar em:
+caminho do seu projeto
+
+“Blindagem” NOC real (pra voltar mesmo se o PM2 morrer)
+
+No Disparador, além de “Ao iniciar o sistema”, marque:
+
+Repetir a tarefa a cada: 1 minuto
+
+Por: indefinidamente (ou “1 dia” com “parar após” desmarcado)
+
+Isso garante auto-heal.
